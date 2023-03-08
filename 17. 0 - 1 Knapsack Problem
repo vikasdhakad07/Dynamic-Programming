@@ -1,0 +1,37 @@
+Method 01: 0 - 1 Knapsack Problem
+
+
+class Solution 
+{ 
+    //Function to return max value that can be put in knapsack of capacity W.
+    static int helper(int W, int wt[], int val[], int ind, int dp[][]){
+        if(ind==0||W==0){
+            return 0;
+        }
+        
+        if(dp[ind][W]!=-1){
+            return dp[ind][W];
+        }
+        
+    
+        if(W>=wt[ind-1]){
+           return Math.max((val[ind-1]+helper(W-wt[ind-1], wt, val, ind-1, dp)),helper(W, wt, val, ind-1, dp));
+        }
+        else{
+        return dp[ind][W]=helper(W,wt,val,ind-1,dp);
+        }
+    }
+     static int dp[][] = new int[1001][1001];
+    static int knapSack(int W, int wt[], int val[], int n) 
+    { 
+         // your code here 
+          for(int i = 0; i < 1001; i++){
+            for(int j = 0; j < 1001; j++){
+                dp[i][j] = -1;
+            }
+          }
+             return helper(W,wt,val,n,dp);
+    } 
+}
+
+
