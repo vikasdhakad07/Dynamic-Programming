@@ -1,0 +1,28 @@
+Method 01: Maximum sum of non-adjacent elements
+
+
+import java.util.* ;
+import java.io.*; 
+import java.util.*;
+public class Solution {
+	public static int solve(int ind, ArrayList<Integer> nums, int dp[]){
+		if(ind==0) return nums.get(ind);
+		if(ind<=0) return 0;
+
+		if(dp[ind]!=-1){
+			return dp[ind];
+		}
+		int pick=nums.get(ind)+solve(ind-2, nums, dp);
+		int notpick=solve(ind-1, nums, dp);
+		return dp[ind]=Math.max(pick, notpick);
+	}
+	public static int maximumNonAdjacentSum(ArrayList<Integer> nums) {
+		// Write your code here.
+		int n=nums.size();
+		int dp[]=new int[n];
+		for(int i=0;i<n;i++){
+			dp[i]=-1;
+		}
+		return solve(n-1,  nums, dp);
+	}
+  }
