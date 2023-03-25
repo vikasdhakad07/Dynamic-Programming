@@ -1,0 +1,50 @@
+Method 01: Recursion
+
+
+class Solution {
+    public int solve(int i, int j, List<List<Integer>> triangle, int n){
+        if(i==n-1){
+            return triangle.get(n-1).get(j);
+        }
+
+        int nd=triangle.get(i).get(j)+solve(i+1,j,triangle,n);
+        int d=triangle.get(i).get(j)+solve(i+1,j+1,triangle,n);
+
+        return Math.min(nd, d);
+    }
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n=triangle.size();
+        return solve(0,0,triangle, n);
+    }
+}
+
+
+Method 02: Recursion + Memoisation
+
+
+class Solution {
+    public int solve(int i, int j, List<List<Integer>> triangle, int n, int dp[][]){
+        if(i==n-1){
+            return triangle.get(n-1).get(j);
+        }
+
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+
+        int nd=triangle.get(i).get(j)+solve(i+1,j,triangle,n,dp);
+        int d=triangle.get(i).get(j)+solve(i+1,j+1,triangle,n,dp);
+
+        return dp[i][j]=Math.min(nd, d);
+    }
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n=triangle.size();
+        int dp[][]=new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return solve(0,0,triangle, n, dp);
+    }
+}
