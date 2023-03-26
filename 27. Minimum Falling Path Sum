@@ -1,0 +1,61 @@
+Method 01: Recursion
+
+
+class Solution {
+
+    public int solve(int i, int j, int matrix[][]){
+        if(j<0||j>=matrix[0].length){
+            return 100000;
+        }
+        if(i==0) return matrix[0][j];
+       
+        int u=matrix[i][j]+solve(i-1,j-1,matrix);
+        int d=matrix[i][j]+solve(i-1,j,matrix);
+        int r=matrix[i][j]+solve(i-1,j+1,matrix);
+
+        return Math.min(u, Math.min(d,r));
+    }
+    public int minFallingPathSum(int[][] matrix) {
+        int m=matrix.length;
+        int n=matrix[0].length;
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i<m;i++){
+            min=Math.min(min, solve(n-1, i, matrix));
+        }
+        return min;
+    }
+}
+
+
+
+
+Method 02: Recursion + Memoisation
+
+
+class Solution {
+
+    public int solve(int i, int j, int matrix[][], int dp[][]){
+        if(j<0||j>=matrix[0].length){
+            return 100000;
+        }
+        if(i==0) return matrix[0][j];
+        if(dp[i][j]!=0)
+            return dp[i][j];
+
+        int u=matrix[i][j]+solve(i-1,j-1,matrix,dp);
+        int d=matrix[i][j]+solve(i-1,j,matrix,dp);
+        int r=matrix[i][j]+solve(i-1,j+1,matrix,dp);
+
+        return dp[i][j]=Math.min(u, Math.min(d,r));
+    }
+    public int minFallingPathSum(int[][] matrix) {
+        int m=matrix.length;
+        int n=matrix[0].length;
+        int dp[][]=new int[m][n];
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i<m;i++){
+            min=Math.min(min, solve(n-1, i, matrix, dp));
+        }
+        return min;
+    }
+}
