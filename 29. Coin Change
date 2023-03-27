@@ -1,0 +1,40 @@
+Method 01:
+
+
+class Solution {
+
+    int minCoins(int coins[], int t){
+        int dp[]=new int[t+1];
+         for(int i=0;i<t;i++){
+            dp[i]=0;
+        }
+
+
+        for(int target=1;target<=t; target++){
+            int mini=Integer.MAX_VALUE;
+
+            for(int i=0;i<coins.length;i++){
+                if(target-coins[i]>=0){
+                    int ans=dp[target-coins[i]];
+                    if(ans!=Integer.MAX_VALUE){
+                        mini=Math.min(mini, 1+ans);
+                    }
+                }
+            }
+            dp[target]=mini;
+        }
+        return dp[t];
+    }
+    public int coinChange(int[] coins, int amount) {
+      int n = coins.length;
+        int dp[][] = new int[n][amount+1];
+         for (int[] row : dp) 
+            Arrays.fill(row, 0); 
+       int ans =  minCoins(coins, amount);
+        if(ans>=(int)Math.pow(10,9))
+            return -1;
+        return ans;
+    }
+}
+
+
