@@ -1,0 +1,59 @@
+Method 01: RECURSION
+
+
+class Solution {
+    int f(int ind, int sum, int k, int n)
+{
+    if (k == 0 && sum == n)
+        return 1;
+    if (ind == n || sum > n || k < 0)
+        return 0;
+ 
+
+    int notTake = 0 + f(ind + 1, sum, k, n);
+    int take = f(ind, sum + ind + 1, k - 1, n);
+ 
+
+    return notTake + take;
+}
+    public int countWaystoDivide(int N, int K) {
+        // Code here
+            return f(0, 0, K, N);
+    }
+}
+
+
+
+Method 02: RECURSION + MEMOISATION
+
+
+class Solution {
+    int f(int ind, int sum, int k, int n, int dp[][][])
+{
+    if (k == 0 && sum == n)
+        return 1;
+    if (ind == n || sum > n || k < 0)
+        return 0;
+ if(dp[ind][sum][k]!=-1){
+     return dp[ind][sum][k];
+ }
+
+    int notTake = 0 + f(ind + 1, sum, k, n, dp);
+    int take = f(ind, sum + ind + 1, k - 1, n, dp);
+ 
+
+    return dp[ind][sum][k]=notTake + take;
+}
+    public int countWaystoDivide(int N, int K) {
+        // Code here
+        int dp[][][]=new int[N+1][N+1][K+1];
+        for(int i=0;i<N+1;i++){
+            for(int j=0;j<N+1;j++){
+              for(int l=0;l<K+1;l++){
+                dp[i][j][l]=-1;
+            }
+        }
+        }
+            return f(0, 0, K, N, dp);
+    }
+}
