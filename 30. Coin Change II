@@ -1,0 +1,54 @@
+Method 01: RECURSION
+
+
+class Solution {
+
+    public int fun(int amount, int coins[], int ind, int com){
+       if(ind >= coins.length || amount < 0){
+			return 0;
+       }
+        if(amount == 0){
+			com++;
+			return com;
+		}
+
+        int nottake=fun(amount, coins, ind+1, com);
+        int take=0;
+        if(coins[ind]<=amount){
+        take=fun(amount-coins[ind], coins, ind, com);
+        }
+        return take+nottake;
+    }
+    public int change(int amount, int[] coins) {
+        int n=coins.length-1;
+        return fun(amount, coins, 0, 0);
+    }
+}
+
+
+Method 02: RECURSION + MEMOISATION
+
+
+class Solution {
+
+    public int fun(int amount, int coins[], int ind, int com){
+       if(ind >= coins.length || amount < 0){
+			return 0;
+       }
+        if(amount == 0){
+			com++;
+			return com;
+		}
+
+        int nottake=fun(amount, coins, ind+1, com);
+        int take=0;
+        if(coins[ind]<=amount){
+        take=fun(amount-coins[ind], coins, ind, com);
+        }
+        return take+nottake;
+    }
+    public int change(int amount, int[] coins) {
+        int n=coins.length-1;
+        return fun(amount, coins, 0, 0);
+    }
+}
