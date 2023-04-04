@@ -1,0 +1,43 @@
+Method 01: RECURSION
+
+
+class Solution {
+    public int fun(int ind,int sum, int nums[]){
+        if(ind>=nums.length){
+            return 0;
+        }
+      
+       int suml=Math.max(nums[ind]+fun(ind+2,sum,nums),fun(ind+1,sum,nums));
+       return suml;
+    }
+    public int rob(int[] nums) {
+        return fun(0,0, nums);
+    }
+}
+
+
+Method 02: RECURSION + MEMOISATION
+
+
+class Solution {
+    public int fun(int ind,int sum, int nums[], int dp[]){
+        if(ind>=nums.length){
+            return 0;
+        }
+      
+      if(dp[ind]!=-1){
+          return dp[ind];
+      }
+
+       int suml=Math.max(nums[ind]+fun(ind+2,sum,nums, dp),fun(ind+1,sum,nums, dp));
+       return dp[ind]=suml;
+    }
+    public int rob(int[] nums) {
+        int n=nums.length;
+        int dp[]=new int[n];
+        for(int i=0;i<n;i++){
+            dp[i]=-1;
+        }
+        return fun(0,0, nums, dp);
+    }
+}
