@@ -1,41 +1,58 @@
-Method 01: Unique Paths II
+Method 01: RECURSION
 
 
 class Solution {
-     public int solve(int [][] grid, int m, int n, int dp[][]){
-          if (m == 0 && n == 0) {
+    public int fun(int i, int j, int m, int n,int obstacleGrid[][]){
+
+        
+        if(i==m-1&&j==n-1&&obstacleGrid[i][j]!=1){
             return 1;
         }
-        if (m >= 0 && n >= 0 && grid[m][n] == 1) {
+
+        if(i>m-1||j>n-1||obstacleGrid[i][j]==1){
             return 0;
         }
-        if (m < 0 || n < 0) {
-            return 0;
-        }
-                
-               if(dp[m][n]!=-1){
-                   return dp[m][n];
-               }
-               else{
-        return dp[m][n]=solve(grid,m-1,n,dp)+solve(grid,m,n-1,dp);
-               }
+      
+       return fun(i+1,j,m,n,obstacleGrid)+fun(i,j+1,m,n,obstacleGrid);
     }
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         int m=obstacleGrid.length;
         int n=obstacleGrid[0].length;
 
-            if (obstacleGrid[0][0] == 1) {
+        return fun(0,0,m,n,obstacleGrid);
+    }
+}
+
+
+Method 02: RECURION + MEMOISATION
+
+
+class Solution {
+    public int fun(int i, int j, int m, int n,int obstacleGrid[][], int dp[][]){
+
+        if(i==m-1&&j==n-1&&obstacleGrid[i][j]!=1){
+            return 1;
+        }
+
+        if(i>m-1||j>n-1||obstacleGrid[i][j]==1){
             return 0;
         }
-        if (obstacleGrid[m - 1][n - 1] == 1) {
-            return 0;
-        }
-         int dp[][]=new int[m][n];
-      for(int i=0;i<m;i++){
-          for(int j=0;j<n;j++){
-              dp[i][j]=-1;
-          }
+      
+      if(dp[i][j]!=-1){
+          return dp[i][j];
       }
-      return solve(obstacleGrid,m-1, n-1, dp);
+       return dp[i][j]=fun(i+1,j,m,n,obstacleGrid,dp)+fun(i,j+1,m,n,obstacleGrid,dp);
+    }
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m=obstacleGrid.length;
+        int n=obstacleGrid[0].length;
+
+        int dp[][]=new int[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return fun(0,0,m,n,obstacleGrid,dp);
     }
 }
