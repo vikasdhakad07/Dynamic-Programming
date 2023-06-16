@@ -1,0 +1,35 @@
+Method 01: RECURSION
+
+class Solution{
+    
+    long numberOfPaths(int m, int n) {
+        // Code Here
+        if(m==1||n==1){
+            return 1;
+        }
+        
+        return numberOfPaths(m-1,n)+numberOfPaths(m, n-1);
+    }
+    
+}
+
+**********************************************************************************************************************************************************************************************
+
+Method 01: Recursion + Memoisation
+
+
+class Solution
+{
+      long dp[][]=new long[101][101];
+    long numberOfPaths(int r, int c)
+    {
+        // code here
+          if(r==1 || c==1){
+            return 1;
+        }
+        if(dp[r][c] != 0) return dp[r][c];
+        long left = numberOfPaths(r-1,c);
+        long right = numberOfPaths(r,c-1);
+        return dp[r][c] = (left+right)%1000000007;     
+    }
+}
