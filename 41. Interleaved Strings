@@ -1,0 +1,43 @@
+Method 01: Interleaved Strings
+
+
+class Solution {
+    public int solve(String a, String b, String c, int n, int m, int len, int dp[][]){
+        if(len==0) return 1;
+        if(dp[n][m]!=-1){
+            return dp[n][m];
+        }
+        
+        int a1=0, b1=0;
+        if(n-1>=0&&a.charAt(n-1)==c.charAt(len-1))
+        a1=solve(a,b,c,n-1,m,len-1,dp);
+        
+         if(m-1>=0&&b.charAt(m-1)==c.charAt(len-1))
+        b1=solve(a,b,c,n,m-1,len-1,dp);
+        
+        if(a1==1||b1==1) 
+        return dp[n][m]=1;
+        return dp[n][m]=0;
+    }
+    
+	public boolean isInterLeave(String a,String b,String c)
+	{
+            //Your code here
+            int n=a.length();
+            int m=b.length();
+            int len=c.length();
+            
+            if(n+m!=len)return false;
+            int dp[][]=new int[n+1][m+1];
+            for(int i=0;i<=n;i++){
+                for(int j=0;j<=m;j++){
+                    dp[i][j]=-1;
+                }
+            }
+            
+            if(solve(a,b,c,n,m,len,dp)==1){
+                return true;
+            }
+            return false;
+	}
+}
