@@ -1,0 +1,35 @@
+Method 01: Buy and Sell a Share at most twice
+
+
+class Solution {
+    public static int maxProfit(int n, int[] price) {
+        // code here
+        
+        int arr[]=new int[n];
+        
+         int ma=price[n-1];
+        for(int i=n-2;i>=0;i--){
+            if(ma<price[i]){
+                ma=price[i];
+                arr[i]=arr[i+1];
+            }
+            else{
+                arr[i]=Math.max(arr[i+1],ma-price[i]);
+            }
+        }
+        
+         ma=price[0];
+        for(int i=1;i<n;i++){
+            if(ma>price[i]){
+                ma=price[i];
+                arr[i]=arr[i-1];
+            }
+            else {
+                arr[i]=Math.max(arr[i-1],arr[i]+price[i]-ma);
+            }
+        }
+        
+      
+        return arr[n-1];
+    }
+}
