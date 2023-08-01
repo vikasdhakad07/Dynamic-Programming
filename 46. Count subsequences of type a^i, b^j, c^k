@@ -1,0 +1,27 @@
+Method 01: Count subsequences of type a^i, b^j, c^k
+
+
+class Solution
+{
+    public int fun(String s)
+    {
+        // Write your code here
+      long a=0;
+      long ab=0;
+      long abc=0;
+      int m=1000000007;
+      for(int i=0;i<s.length();i++){
+          char ch=s.charAt(i);
+          if(ch=='a'){
+              a=(2*a+1)%m;
+          }
+          else if(ch=='b'){
+              ab=(2*ab+a)%m;
+          }
+          else{
+              abc=(2*abc+ab)%m;
+          }
+      }
+      return (int)abc;
+      }
+}
